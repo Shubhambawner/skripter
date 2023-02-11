@@ -237,23 +237,25 @@ export default function Home() {
 
 
     <div className={styles.containers}>
-      <video style={{    width: '50%'}} className={styles.previewCont} id="video" controls class="video-js" data-setup='{}'></video>
+      <video style={{ width: '50%' }} className={styles.previewCont} id="video" controls class="video-js" data-setup='{}'></video>
       <div className={styles.action_container}>
         <div className={styles.audio}>
           {/* <Sound_visual /> */}
         </div>
         <div className={styles.action}>
           <div class={styles.btn_group}>
-            <button onClick={recordDesktop} id="record-desktop" title="Record Desktop"><i class="ti-desktop"></i></button>
+            <button onClick={recordDesktop} id="record-desktop" title="Record Desktop">
+              Record Desktop
+            </button>
             <div class="ck-button" id="micro-audio-btn">
               <label>
                 <input onClick={microAudioCheck} type="checkbox" id="micro-audio" value="false" />
-                <i class="ti-microphone" title="Include Microphone Audio"></i>
+                Include Microphone Audio
               </label>
             </div>
-            <button onClick={stopRecording} id="record-stop" hidden="true"><i class="ti-control-stop" title="Stop Recording"></i></button>
-            <button onClick={play} id="play-button" hidden="true"><i class="ti-control-play" title="Play Recording"></i></button>
-            <button onClick={download} id="download-button" hidden="true"><i class="ti-save-alt" title="Save Video (webm)"></i></button>
+            <button onClick={stopRecording} id="record-stop" hidden="true">Stop Recording</button>
+            <button onClick={play} id="play-button" hidden="true">Play Recording</button>
+            <button onClick={download} id="download-button" hidden="true">Save Video (webm)</button>
           </div>
         </div>
       </div>
