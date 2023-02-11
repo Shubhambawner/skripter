@@ -38,22 +38,21 @@
     "css-loader": "^4.3.0",
     "electron-packager": "^10.1.0",
     "electron-prebuilt": "^1.4.13",
+    "file-loader": "^6.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.26.11",
     "sass-loader": "^10.0.2",
     "style-loader": "^1.2.1",
-    "webpack-cli": "^5.0.1",
-    "file-loader": "^6.2.0",
-
-    "url-loader": "^4.1.1"
-
+    "url-loader": "^4.1.1",
+    "webpack-cli": "^5.0.1"
   },
   "dependencies": {
     "bootstrap": "^5.2.3",
     "domify": "^1.4.0",
     "electron": "1.7.9",
-    "webpack": "^5.75.0"
+    "webpack": "^5.75.0",
+    "whisper-node": "^0.1.5"
   },
   "config": {
     "forge": {
