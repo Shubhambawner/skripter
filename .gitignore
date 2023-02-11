@@ -6,3 +6,4 @@ npm-debug.log
 scripts/
 videoOutput
 output
+build/
