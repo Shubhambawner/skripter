@@ -11,19 +11,50 @@
     "WebRTC"
   ],
   "scripts": {
-    "build": "electron-packager ./src ElectronScreenRecorder  --platform=darwin --arch=x64 --version=0.36.0 --icon=src/Icon.icns",
-    "start": "electron ."
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "main": "src/main.js",
   "bin": {
     "electron-screen-recorder": "./launch.js"
   },
   "devDependencies": {
+    "@electron-forge/cli": "^6.0.5",
     "electron-packager": "^10.1.0",
-    "electron-prebuilt": "^1.4.13"
+    "electron-prebuilt": "^1.4.13",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "dependencies": {
     "domify": "^1.4.0",
     "electron": "1.7.9"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "electron_quick_start"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
   }
 }
