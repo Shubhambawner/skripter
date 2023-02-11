@@ -1,5 +1,8 @@
-const {desktopCapturer, ipcRenderer, remote} = require('electron')
+const { desktopCapturer, ipcRenderer, remote } = require('electron')
 const domify = require('domify')
+const path = require('path')
+const exec = require('child_process').exec;
+
 
 let localStream
 let microAudioStream
@@ -11,7 +14,7 @@ let includeMic = false
 
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('#record-desktop').addEventListener('click', recordDesktop)
-  document.querySelector('#record-camera').addEventListener('click', recordCamera)
+  document.querySelector('#record-camera').addEventListener('click', scriptPdf)
   document.querySelector('#record-window').addEventListener('click', recordWindow)
   document.querySelector('#play-video').addEventListener('click', playVideo)
   document.querySelector('#micro-audio').addEventListener('click', microAudioCheck)
@@ -22,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 const playVideo = () => {
-  remote.dialog.showOpenDialog({properties: ['openFile']}, (filename) => {
+  remote.dialog.showOpenDialog({ properties: ['openFile'] }, (filename) => {
     console.log(filename)
     let video = document.querySelector('video')
     video.muted = false
@@ -56,7 +59,7 @@ const microAudioCheck = () => {
   var video = document.querySelector('video')
   video.muted = true
   includeMic = !includeMic
-  if(includeMic)
+  if (includeMic)
     document.querySelector('#micro-audio-btn').classList.add('active');
   else
     document.querySelector('#micro-audio-btn').classList.remove('active');
@@ -64,19 +67,19 @@ const microAudioCheck = () => {
 
   if (includeMic) {
     navigator.webkitGetUserMedia({ audio: true, video: false },
-        getMicroAudio, getUserMediaError)
+      getMicroAudio, getUserMediaError)
   }
 }
 
 // function sysAudioCheck () {
-  // // Mute video so we don't play loopback audio
-  // var video = document.querySelector('video')
-  // video.muted = true
+// // Mute video so we don't play loopback audio
+// var video = document.querySelector('video')
+// video.muted = true
 
-  // includeSysAudio = !includeSysAudio
-  // includeMic = false
-  // document.querySelector('#micro-audio').checked = false
-  // console.log('System Audio =', includeSysAudio)
+// includeSysAudio = !includeSysAudio
+// includeMic = false
+// document.querySelector('#micro-audio').checked = false
+// console.log('System Audio =', includeSysAudio)
 // };
 
 const cleanRecord = () => {
@@ -132,23 +135,42 @@ const play = () => {
   let video = document.querySelector('video')
   video.controls = true;
   video.muted = false
-  let blob = new Blob(recordedChunks, {type: 'video/webm'})
+  let blob = new Blob(recordedChunks, { type: 'video/webm' })
   video.src = window.URL.createObjectURL(blob)
 }
 
 const download = () => {
-  let blob = new Blob(recordedChunks, {type: 'video/webm'})
+  let blob = new Blob(recordedChunks, { type: 'video/webm' })
   let url = URL.createObjectURL(blob)
   let a = document.createElement('a')
   document.body.appendChild(a)
   a.style = 'display: none'
   a.href = url
-  a.download = 'electron-screen-recorder.webm'
+  let name = `vid${num++}.webm`
+  a.download = name
   a.click()
   setTimeout(function () {
+    console.log(name, ';;;;;;')
     document.body.removeChild(a)
     window.URL.revokeObjectURL(url)
-  }, 100)
+    scriptPdf(path.join(__dirname, './../videoOutput/', name))
+  }, 1000)
+}
+let num = 0;
+
+function scriptPdf(Path) {
+  // let Path='D:/codeutsav/electron-screen-recorder/videoOutput/vid0.webm'
+  console.log(Path);
+  let scriptPath= path.join(__dirname, '/../scripts/video2pdfslides.exe')
+  let runScript = `${scriptPath} ${Path}`
+  console.log(runScript,'llllllllllll');
+  exec(runScript, (err, stdout, stderr) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log(stdout);
+  })
 }
 
 const getMediaStream = (stream) => {
@@ -165,13 +187,13 @@ const getMediaStream = (stream) => {
     localStream.addTrack(audioTracks[0])
   }
   // if (includeSysAudio) {
-    // console.log('Adding system audio track.')
-    // let audioTracks = stream.getoAudioTracks()
-    // if (audioTracks.length < 1) {
-      // console.log('No audio track in screen stream.')
-    // }
+  // console.log('Adding system audio track.')
+  // let audioTracks = stream.getoAudioTracks()
+  // if (audioTracks.length < 1) {
+  // console.log('No audio track in screen stream.')
+  // }
   // } else {
-    // console.log('Not adding audio track.')
+  // console.log('Not adding audio track.')
   // }
   try {
     console.log('Start recording the stream.')
@@ -205,7 +227,11 @@ const onAccessApproved = (id) => {
   console.log('Window ID: ', id)
   navigator.webkitGetUserMedia({
     audio: false,
-    video: { mandatory: { chromeMediaSource: 'desktop', chromeMediaSourceId: id,
-      maxWidth: window.screen.width, maxHeight: window.screen.height } }
+    video: {
+      mandatory: {
+        chromeMediaSource: 'desktop', chromeMediaSourceId: id,
+        maxWidth: window.screen.width, maxHeight: window.screen.height
+      }
+    }
   }, getMediaStream, getUserMediaError)
 }
