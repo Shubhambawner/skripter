@@ -215,8 +215,8 @@ const getMicroAudio = (stream) => {
   stream.onended = () => { console.log('Micro audio ended.') }
 }
 
-const getUserMediaError = () => {
-  console.log('getUserMedia() failed.')
+const getUserMediaError = (e) => {
+  console.log('getUserMedia() failed.', e)
 }
 
 const onAccessApproved = (id) => {

@@ -11,6 +11,7 @@ document.onkeydown = function (evt) {
 
 ipcRenderer.on('get-sources', (event, options) => {
   desktopCapturer.getSources(options, (error, sources) => {
+    console.log(options, sources);
     if (error) throw error
     let sourcesList = document.querySelector('.capturer-list')
     for (let source of sources) {
