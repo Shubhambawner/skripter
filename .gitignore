@@ -6,4 +6,5 @@ npm-debug.log
 scripts/
 videoOutput
 output
-build
+build/*
+ffmpeg.exe

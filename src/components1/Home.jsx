@@ -2,21 +2,21 @@ import React from "react";
 // import Sound_visual from './ReactMicModule';
 // import Sidenav from './Sidenav'
 import styles from "./home.module.css";
-const { desktopCapturer, ipcRenderer, remote } = require('electron')
-const domify = require('domify')
-const path = require('path')
-const exec = require('child_process').exec;
+import { desktopCapturer, ipcRenderer, remote } from 'electron'
+import domify from 'domify'
+import path from 'path'
+import { exec } from 'child_process';
 
-ipcRenderer.on('source-id-selected', (event, sourceId) => {
-  // Users have cancel the picker dialog.
-  if (!sourceId) return
-  console.log(sourceId)
-  onAccessApproved(sourceId)
-})
+
 
 export default function Home() {
 
-
+  ipcRenderer.on('source-id-selected', (event, sourceId) => {
+    // Users have cancel the picker dialog.
+    if (!sourceId) return
+    console.log(sourceId)
+    onAccessApproved(sourceId)
+  })
 
   let localStream
   let microAudioStream
@@ -25,18 +25,6 @@ export default function Home() {
   let recorder
   let includeMic = false
   // let includeSysAudio = false
-
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelector('#record-desktop').addEventListener('click', recordDesktop)
-    document.querySelector('#record-camera').addEventListener('click', scriptPdf)
-    document.querySelector('#record-window').addEventListener('click', recordWindow)
-    document.querySelector('#play-video').addEventListener('click', playVideo)
-    document.querySelector('#micro-audio').addEventListener('click', microAudioCheck)
-    // document.querySelector('#system-audio').addEventListener('click', sysAudioCheck)
-    document.querySelector('#record-stop').addEventListener('click', stopRecording)
-    document.querySelector('#play-button').addEventListener('click', play)
-    document.querySelector('#download-button').addEventListener('click', download)
-  })
 
   const playVideo = () => {
     remote.dialog.showOpenDialog({ properties: ['openFile'] }, (filename) => {
@@ -49,8 +37,8 @@ export default function Home() {
 
   const disableButtons = () => {
     document.querySelector('#record-desktop').disabled = true
-    document.querySelector('#record-camera').disabled = true
-    document.querySelector('#record-window').disabled = true
+    // document.querySelector('#record-camera').disabled = true
+    // document.querySelector('#record-window').disabled = true
     document.querySelector('#record-stop').hidden = false
     document.querySelector('#play-button').hidden = true
     document.querySelector('#download-button').hidden = true
@@ -58,8 +46,8 @@ export default function Home() {
 
   const enableButtons = () => {
     document.querySelector('#record-desktop').disabled = false
-    document.querySelector('#record-camera').disabled = false
-    document.querySelector('#record-window').disabled = false
+    // document.querySelector('#record-camera').disabled = false
+    // document.querySelector('#record-window').disabled = false
     document.querySelector('#record-stop').hidden = true
     document.querySelector('#play-button').hidden = true
     document.querySelector('#download-button').hidden = true
@@ -105,6 +93,7 @@ export default function Home() {
 
   const recordDesktop = () => {
     cleanRecord()
+    console.log('kkkkk')
     ipcRenderer.send('show-picker', { types: ['screen'] })
   }
 
@@ -245,46 +234,33 @@ export default function Home() {
 
 
   return (
+
+
     <div className={styles.containers}>
-      <div className={styles.previewCont}></div>
+      <video style={{ width: '50%' }} className={styles.previewCont} id="video" controls class="video-js" data-setup='{}'></video>
       <div className={styles.action_container}>
         <div className={styles.audio}>
           {/* <Sound_visual /> */}
         </div>
         <div className={styles.action}>
           <div class={styles.btn_group}>
-            <button >Start Recording</button>
-            <button >Stop Recording</button>
-            <button >Extract PPT</button>
-            <button >Extract Transcripted file</button>
-            <button >Start Recording</button>
-            <button >Stop Recording</button>
-            <button >Extract PPT</button>
-            <button >Extract Transcripted file</button>
+            <button onClick={recordDesktop} id="record-desktop" title="Record Desktop">
+              Record Desktop
+            </button>
+            <div class="ck-button" id="micro-audio-btn">
+              <label>
+                <input onClick={microAudioCheck} type="checkbox" id="micro-audio" value="false" />
+                Include Microphone Audio
+              </label>
+            </div>
+            <button onClick={stopRecording} id="record-stop" hidden="true">Stop Recording</button>
+            <button onClick={play} id="play-button" hidden="true">Play Recording</button>
+            <button onClick={download} id="download-button" hidden="true">Save Video (webm)</button>
           </div>
         </div>
       </div>
     </div>
+
   );
 }
 
-<div class="row">
-        <video id="video" controls class="video-js" data-setup='{}'></video>
-    </div>
-    <div class="row">
-        <button id="record-desktop" title="Record Desktop"><i class="ti-desktop"></i></button>
-        <div class="ck-button" id="micro-audio-btn">
-            <label> 
-              <input type="checkbox" id="micro-audio" value="false">
-              <i class="ti-microphone" title="Include Microphone Audio"></i>
-          </label>
-        </div>
-    </div>
-    <hr/>
-    <div class="row">
-        <button id="record-stop" hidden="true"><i class="ti-control-stop" title="Stop Recording"></i></button>
-    </div>
-    <div class="row">
-        <button id="play-button" hidden="true"><i class="ti-control-play" title="Play Recording"></i></button>
-        <button id="download-button" hidden="true"><i class="ti-save-alt" title="Save Video (webm)"></i></button>
-    </div>

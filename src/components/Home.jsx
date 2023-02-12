@@ -6,7 +6,7 @@ import { desktopCapturer, ipcRenderer, remote } from 'electron'
 import domify from 'domify'
 import path from 'path'
 import { exec } from 'child_process';
-
+import processVideo from './../../run.js'
 
 
 export default function Home() {
@@ -142,31 +142,51 @@ export default function Home() {
     document.body.appendChild(a)
     a.style = 'display: none'
     a.href = url
-    let name = `vid${num++}.webm`
+
+    let y = localStorage.getItem('c');
+    if(!y){
+      localStorage.setItem('c',1)
+      y = 1;
+    }
+    let name = `vid3.webm`
+    localStorage.setItem('c',++y)
+
     a.download = name
     a.click()
     setTimeout(function () {
       console.log(name, ';;;;;;')
       document.body.removeChild(a)
       window.URL.revokeObjectURL(url)
-      scriptPdf(path.join(__dirname, './../videoOutput/', name))
-    }, 1000)
+      scriptPdf(name)
+    }, 5000)
   }
   let num = 0;
 
   function scriptPdf(Path) {
     // let Path='D:/codeutsav/electron-screen-recorder/videoOutput/vid0.webm'
     console.log(Path);
-    let scriptPath = path.join(__dirname, '/../scripts/video2pdfslides.exe')
-    let runScript = `${scriptPath} ${Path}`
-    console.log(runScript, 'llllllllllll');
-    exec(runScript, (err, stdout, stderr) => {
-      if (err) {
-        console.error(err);
-        return;
-      }
-      console.log(stdout);
-    })
+    // let scriptPath = path.join(__dirname, '/../dist/Combined/videotopngs.exe')
+    // let runScript = `${scriptPath} ${Path}`
+    // console.log(runScript, 'llllllllllll');
+    processVideo(Path)
+
+    // exec(runScript, (err, stdout, stderr) => {
+    //   if (err) {
+    //     console.error(err);
+    //     return;
+    //   }
+    //   console.log(stdout);
+    //   scriptPath = path.join(__dirname, '/../dist/Combined/sendVidToServer.exe')
+    //   runScript = `${scriptPath} ${Path}`
+    //   exec(runScript, (err, stdout, stderr) => {
+    //     console.log("sendVidToServer");
+    //     if (err) {
+    //       console.error(err);
+    //       return;
+    //     }
+    //     console.log(stdout);
+    //   })
+    // })
   }
 
   const getMediaStream = (stream) => {
@@ -237,7 +257,10 @@ export default function Home() {
 
 
     <div className={styles.containers}>
-      <video style={{ width: '50%' }} className={styles.previewCont} id="video" controls class="video-js" data-setup='{}'></video>
+      <video style={{
+        width: '50%', margin: 'auto', display: 'flex',
+        'flexDirection': 'column'
+      }} className={styles.previewCont} id="video" controls class="video-js" data-setup='{}'></video>
       <div className={styles.action_container}>
         <div className={styles.audio}>
           {/* <Sound_visual /> */}
