@@ -5,6 +5,9 @@ path.txt
 npm-debug.log
 scripts/
 videoOutput/*
+
 output/*
 build/*
 ffmpeg.exe
+*.zip
+build/app.js

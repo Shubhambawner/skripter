@@ -28,9 +28,11 @@ function Slides({ navigate, metadata }) {
     for (let index = 0; index < images.length; index++) {
         const element = images[index];
         List.push(
-            <div key={index} style={{width:'80%', border:'1px solid black', margin:'auto', marginBottom:'1rem'}}>
+            <div className="card mb-2">
+            <div key={index} className="card-img-top">
             <img src={images[index]} style={{width:'100%'}}></img>
             <p style={{fontSize:'1.2rem', paddingBottom:'1rem', padding:'0.61rem', fontWeight:'1200'}}>{summeries[index]}  </p>
+            </div>
             </div>
         )
     }
