@@ -10,7 +10,7 @@ function App() {
   
   return (
     <div className="row g-2">
-      <div className="col-3"><Sidenav/></div>
+     <Sidenav/>
       <div className="col-9">
      <Home/>
       <Records/>
