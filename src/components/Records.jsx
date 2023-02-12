@@ -1,10 +1,10 @@
 import React from 'react'
 import { useEffect } from "react";
-import TableData from "./TableData.js";
+import TableData from "./TableData";
 function handleClick() {
     // write the funciton that will download the ppt and transcript files
 }
-function Records() {
+function Records({navigate}) {
 
     // get table column
     const column = Object.keys(TableData[0]);
@@ -13,29 +13,23 @@ function Records() {
     const ThData = () => {
 
         return column.map((data) => {
-            return <th className='display-6' key={data}>{data}</th>
+            return <th className='fs-3' key={data}>{data}</th>
         })
     }
 
-    // get table row data
-    const tdData = () => {
+    let c = localStorage.getItem('c')
+    let rows = []
+    for (let a=0;a<=c;a--) {
+        rows.push(
+            <tr className=''>
+                <td className='p-4 d-flex justify-content-evenly'>
+                    <button onClick={()=>{handleClick(a)}} type="button" class="btn btn-primary px-3 py-2">Smart Notes {a}</button>
+                </td>
+            </tr >)
+    }
 
-        return TableData.map((data) => {
-            return (
-
-                <tr className='p-1 fs-5 '>
-                    {
-                        column.map((v) => {
-                            return <td>{data[v]}</td>
-                        })
-                    }
-                    <td className='p-4 d-flex justify-content-evenly'>
-                        <button onClick={handleClick} type="button" class="btn btn-primary mr-1">Original Text</button>
-                        <button onClick={handleClick} type="button" class="btn btn-primary">PPT</button>
-                    </td>
-                </tr >
-            )
-        })
+    function handleClick(c){
+        navigate('slides',c)
     }
 
 
@@ -43,15 +37,7 @@ function Records() {
 
         <div className='col'>
             <div className='p-4 '>
-                <table className="table table-hover table-bordered text-center">
-                    <thead className=''>
-                        <tr className=' bg-warning'>{ThData()}
-                            <td className='display-6'>Action</td></tr>
-                    </thead>
-                    <tbody>
-                        {tdData()}
-                    </tbody>
-                </table>
+            {rows}
             </div>
         </div >
     )

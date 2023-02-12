@@ -1,0 +1,17 @@
+.table {
+    display: inline-block;
+    margin: auto;
+    width: 65%;
+    position: relative;
+    padding-top: 10%;
+    padding-left: 10%;
+}
+
+th {
+    font-size: 2rem;
+}
+
+tr {
+    font-size: 1.4rem;
+    line-height: 90px;
+}

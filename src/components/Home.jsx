@@ -6,7 +6,7 @@ import { desktopCapturer, ipcRenderer, remote } from 'electron'
 import domify from 'domify'
 import path from 'path'
 import { exec } from 'child_process';
-import processVideo from './../../run.js'
+import processVideo from '../../run.js'
 
 
 export default function Home() {
@@ -148,7 +148,7 @@ export default function Home() {
       localStorage.setItem('c',1)
       y = 1;
     }
-    let name = `vid3.webm`
+    let name = `vid${y}.webm`
     localStorage.setItem('c',++y)
 
     a.download = name

@@ -1,4 +1,4 @@
-.logo {
+/* .logo {
     text-align: center;
     padding-top: 50px;
 }
@@ -35,4 +35,19 @@ li {
 ul {
     margin: 0;
     padding: 0;
+} */
+
+.hoveffect {}
+
+.hoveffect:hover {
+    background-color: rgb(77, 122, 255);
+}
+
+
+.sidebar {
+    box-shadow: 5px 0px 5px rgba(0, 0, 0, 0.5);
+}
+
+.iconpadding {
+    margin-right: 10px;
 }

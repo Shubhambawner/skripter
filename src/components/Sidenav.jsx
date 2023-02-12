@@ -1,21 +1,25 @@
 import React from 'react'
-import styles from './sidenav.module.css'
-import logo from './logo.png'
+import Logo from './Logo.jsx'
+// import styles from "./sidenav.module.css"
+export default function Sidenav({ navigate }) {
 
-export default function Sidenav() {
     return (
-        <div className="sticky-top text-bg-primary vh-100 ">
-            <div className='d-flex justify-content-center p-4'><img src={logo} className='img-tumbnail' alt="" /></div>
-            <ul className='list-group'>
-                <li class="list-item fs-5">An item</li>
+        <div style={{ width: '100%' }} className="col-2 sticky-top text-bg-primary vh-100 ">
+            <div className='d-flex justify-content-center p-3'>
+                <Logo />
+            </div>
+            <ul className='list-unstyled '>
+                <li onClick={() => { navigate('home') }} class={`list-item mt-3 p-3 pb-0 fs-5 `}>
+
+                    Dashboard
+                </li>
+
+                <li onClick={() => { navigate('recordings') }} class="list-item mt-3 p-3 pb-0 fs-5">Recordings <hr /></li>
+
+                <li class="list-item mt-3 p-3 pb-0 fs-5">Settings<hr /></li>
+
+                <li onClick={() => { navigate('about') }} class="list-item mt-3 p-3 pb-0 fs-5">About Us</li>
                 <hr />
-                <li class="list-item fs-5">A second item</li>
-                <hr />
-                <li class="list-item fs-5">A third item</li>
-                <hr />
-                <li class="list-item fs-5">A fourth item</li>
-                <hr />
-                <li class="list-item fs-5">And a fifth one</li>
             </ul>
         </div >
     )

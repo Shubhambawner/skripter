@@ -1,0 +1,38 @@
+.logo {
+    text-align: center;
+    padding-top: 50px;
+}
+
+.sidenav {
+    background-color: rgb(194, 130, 255);
+    height: 100vh;
+    width: 20%;
+    display: flex;
+    position: sticky;
+
+}
+
+.itemList {
+    text-align: center;
+    padding-top: 18%;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+li {
+    line-height: 80px;
+    list-style: none;
+    text-decoration: none;
+
+    text-align: left;
+    padding-left: 20px;
+    font-size: 1.8rem;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}

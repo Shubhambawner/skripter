@@ -1,0 +1,22 @@
+h1{
+    text-align: center;
+    margin: 0;
+}
+.infor{
+width: 60%;
+}
+.container{
+    
+    /* position: relative; */
+    width: 60%;
+padding-top:100px ;
+margin: auto;
+display: flex;
+padding-left:200px;
+
+}
+
+.aboutlogo{
+width: 40%;
+padding-left:30px ;
+}
