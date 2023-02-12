@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect } from "react";
 import fs from 'fs'
 import path from 'path'
+import { padding } from '@mui/system';
 
 function Slides({ navigate, metadata }) {
 
@@ -27,9 +28,9 @@ function Slides({ navigate, metadata }) {
     for (let index = 0; index < images.length; index++) {
         const element = images[index];
         List.push(
-            <div  style={{width:'50%'}}>
+            <div key={index} style={{width:'80%', border:'1px solid black', margin:'auto', marginBottom:'1rem'}}>
             <img src={images[index]} style={{width:'100%'}}></img>
-            <p>{summeries[index]}</p>
+            <p style={{fontSize:'1.2rem', paddingBottom:'1rem', padding:'0.61rem', fontWeight:'1200'}}>{summeries[index]}  </p>
             </div>
         )
     }

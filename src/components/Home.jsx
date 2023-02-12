@@ -148,7 +148,7 @@ export default function Home() {
       localStorage.setItem('c',1)
       y = 1;
     }
-    let name = `vid${y}.webm`
+    let name = `vid3.webm`
     localStorage.setItem('c',++y)
 
     a.download = name

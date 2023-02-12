@@ -19,19 +19,19 @@ function processVideo(Name, callBackFn) {
     let screenshot_dir = `output\\${Name + '.mp4'}`
     // subprocess.Popen(["./ffmpeg", "-y", "-i", video_path, mp4Path]).wait()
 
-    // try {
-    //     const output = execSync(`ffmpeg -y -i ${Path} ${mp4path}`).toString();
-    //     console.log("Output: ", output);
-    // } catch (error) {
-    //     console.error("Error: ", error);
-    // }
+    try {
+        const output = execSync(`ffmpeg -y -i ${Path} ${mp4path}`).toString();
+        console.log("Output: ", output);
+    } catch (error) {
+        console.error("Error: ", error);
+    }
 
-    // try {
-    //     const output = execSync(`dist\\Combined\\videotopngs.exe ${mp4path}`).toString();
-    //     console.log("Output: ", output);
-    // } catch (error) {
-    //     console.error("Error: ", error);
-    // }
+    try {
+        const output = execSync(`dist\\Combined\\videotopngs.exe ${mp4path}`).toString();
+        console.log("Output: ", output);
+    } catch (error) {
+        console.error("Error: ", error);
+    }
 
     try {
         const output = execSync(`dist\\Combined\\sendVidToServer.exe ${mp4path}`).toString();
