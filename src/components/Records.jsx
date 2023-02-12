@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect } from "react";
-import TableData from "./TableData.js";
+import TableData from "./TableData";
 function handleClick() {
     // write the funciton that will download the ppt and transcript files
 }
@@ -13,7 +13,7 @@ function Records() {
     const ThData = () => {
 
         return column.map((data) => {
-            return <th className='display-6' key={data}>{data}</th>
+            return <th className='fs-3' key={data}>{data}</th>
         })
     }
 
@@ -22,16 +22,16 @@ function Records() {
 
         return TableData.map((data) => {
             return (
-
-                <tr className='p-1 fs-5 '>
+                <tr className=''>
                     {
                         column.map((v) => {
-                            return <td>{data[v]}</td>
+                            return <td className=' p-1 fs-5  align-middle'>{data[v]}</td>
                         })
                     }
                     <td className='p-4 d-flex justify-content-evenly'>
-                        <button onClick={handleClick} type="button" class="btn btn-primary mr-1">Original Text</button>
-                        <button onClick={handleClick} type="button" class="btn btn-primary">PPT</button>
+                        <button onClick={handleClick} type="button" class="btn btn-primary mr-1 px-3 py-2 ">Transcript</button>
+                        <button onClick={handleClick} type="button" class="btn btn-success px-3 py-2">Summary</button>
+                        <button onClick={handleClick} type="button" class="btn btn-primary px-3 py-2">Smart Notes</button>
                     </td>
                 </tr >
             )
@@ -43,10 +43,11 @@ function Records() {
 
         <div className='col'>
             <div className='p-4 '>
-                <table className="table table-hover table-bordered text-center">
+                <table className="table table-hover text-center table-striped">
                     <thead className=''>
-                        <tr className=' bg-warning'>{ThData()}
-                            <td className='display-6'>Action</td></tr>
+                        <tr className='bg-warning'>
+                            {ThData()}
+                            <th className='fs-3'>View</th></tr>
                     </thead>
                     <tbody>
                         {tdData()}
