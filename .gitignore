@@ -11,3 +11,4 @@ build/*
 ffmpeg.exe
 *.zip
 build/app.js
+out
